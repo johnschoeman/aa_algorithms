@@ -12,14 +12,16 @@ class DynamicArray
 
   # O(1)
   def [](index)
-    raise "index out of bounds" unless check_index(index)
-    self.static_array[index % self.length]
+    check_index(index)
+    # self.static_array[index % self.length]
+    static_array[index]
   end
 
   # O(1)
   def []=(index, value)
-    raise "index out of bounds" unless check_index(index)
-    self.static_array[index % self.length] = value
+    check_index(index)
+    # self.static_array[index % self.length] = value
+    static_array[index] = value
   end
 
   # O(1)
@@ -29,12 +31,9 @@ class DynamicArray
     return @static_array[self.length]
   end
 
-  # O(1) ammortized; O(n) worst case. Variable because of the possible
-  # resize.
+  # O(1) ammortized; O(n) worst case. Variable because of the possible resize.
   def push(val)
-    if self.length == self.capacity
-      self.resize!
-    end
+    self.resize! if self.length == self.capacity
     self.length += 1
     self[length - 1] = val
   end
@@ -42,22 +41,16 @@ class DynamicArray
   # O(n): has to shift over all the elements.
   def shift
     result = self[0]
-    (1...self.length).each do |i|
-      self[i - 1] = self[i]
-    end
+    (1...self.length).each { |i| self[i - 1] = self[i] }
     self.length -= 1
     result
   end
 
   # O(n): has to shift over all the elements.
   def unshift(val)
-    if self.length == self.capacity
-      self.resize!
-    end
+    self.resize! if self.length == self.capacity
     self.length += 1
-    (length - 2).downto(0) do |i|
-      self[i + 1] = self[i]
-    end
+    (length - 2).downto(0) { |i| self[i + 1] = self[i] }
     self[0] = val
   end
 
@@ -66,16 +59,15 @@ class DynamicArray
   attr_writer :length
 
   def check_index(index)
-    (0...self.length).include?(index)
+    # (0...self.length).include?(index)
+    raise "index out of bounds" unless (index >= 0) && (index < length)
   end
 
   # O(n): has to copy over all the elements to the new store.
   def resize!
-    new_static_array = StaticArray.new(self.capacity * 2)
     self.capacity *= 2
-    (0...self.length).each do |i|
-      new_static_array[i] = self[i]
-    end
+    new_static_array = StaticArray.new(self.capacity)
+    (0...self.length).each { |i| new_static_array[i] = self[i] }
     self.static_array = new_static_array
   end
 end
