@@ -18,6 +18,14 @@ class MaxIntSet
     @store[num]
   end
 
+  # very strange bug within rspec itself
+  # all of the expect to_not tests are calling #respond_to?(:any?) on the subject of the test.
+  # causing an 'NoMethodError: undefined method `each' for Exception:Class' error
+
+  def any?
+    false
+  end
+
   private
 
   def is_valid?(num)
@@ -27,7 +35,6 @@ class MaxIntSet
   def validate!(num)
   end
 end
-
 
 class IntSet
   def initialize(num_buckets = 20)
@@ -44,6 +51,10 @@ class IntSet
 
   def include?(num)
     @store[num % @store.length].include?(num)
+  end
+
+  def any?
+    false
   end
 
   private
@@ -77,6 +88,10 @@ class ResizingIntSet
 
   def include?(num)
     @store[num % num_buckets].include?(num)
+  end
+
+  def any?
+    false
   end
 
   private

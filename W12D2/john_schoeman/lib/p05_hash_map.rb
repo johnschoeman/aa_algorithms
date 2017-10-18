@@ -44,6 +44,10 @@ class HashMap
     end
   end
 
+  def any?
+    false
+  end
+
   # uncomment when you have Enumerable included
   def to_s
     pairs = inject([]) do |strs, (k, v)|

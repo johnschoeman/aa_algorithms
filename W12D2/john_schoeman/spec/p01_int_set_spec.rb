@@ -1,3 +1,4 @@
+require 'byebug'
 require 'rspec'
 require 'p01_int_set'
 
@@ -21,6 +22,7 @@ describe MaxIntSet do
     end
 
     it "should raise an error when inserting numbers that are out of range" do
+      byebug
       expect{ set.insert(51) }.to raise_error("Out of bounds")
       expect{ set.insert(-1) }.to raise_error("Out of bounds")
     end
