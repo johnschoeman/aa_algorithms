@@ -26,6 +26,11 @@ class QuickSort
 
   def self.partition(array, start, length, &prc)
     prc ||= Proc.new { |a,b| a <=> b }
+
+    #shuffle pivot to avoid pathological data sets
+    new_pivot = start + rand(length)
+    array[start], array[new_pivot] = array[new_pivot], array[start]
+
     partition_idx = start + 1
     ((start + 1)...(start + length)).each do |i|
       case prc.call(array[start], array[i])
