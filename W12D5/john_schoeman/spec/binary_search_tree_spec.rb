@@ -46,7 +46,7 @@ describe BinarySearchTree do
       # intermediate_root is the node with value of 2
 
       expect(intermediate_root.left.value).to eq(1)
-
+      puts bst
       expect(prefilled_bst.root.value).to eq(5)
       expect(prefilled_bst.root.left.value).to eq(3)
       expect(prefilled_bst.root.left.left.value).to eq(1)
