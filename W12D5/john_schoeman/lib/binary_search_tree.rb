@@ -84,9 +84,8 @@ class BinarySearchTree
       if max.left.nil?
         replace(node_to_delete, max)
         remove(node_to_delete)
-      end
-      if max.left
-        promote(max, max.left)
+      else
+        max.parent.right = max.left
         replace(node_to_delete, max)
         remove(node_to_delete)
       end
@@ -151,7 +150,4 @@ class BinarySearchTree
     end
   end
 
-  def promote(node, child)
-    node.parent.right = child
-  end
 end
