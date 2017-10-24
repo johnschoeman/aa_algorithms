@@ -15,3 +15,28 @@
 
 
 
+def in_order(root_node) 
+  node_stack = [root_node]
+  curr_node = nil
+  visted_nodes = []
+  in_order_array =  []
+  until node_stack.empty?
+    curr_node = node_stack.pop
+    node_stack.push(curr_node.right) if curr_node.right
+    node_stack.push(curr_node.left) if curr_node.left
+    visted_nodes.push(curr_node)
+  end
+  return visted_nodes
+end
+
+###
+# in order iterative algorigthm
+# 1. create an empty node_stack
+# 2. init curr node as the root
+# 3. push the current into the stack, and set current as current.left until current is null.
+# 4. if current is null and stack stack isn't empty
+#   1. pop top item from stack and print
+#   2. set current to popped item.right
+#   3. go back to step 3
+# 5. if current is null and stack is empty then we are done.
+###
