@@ -22,6 +22,7 @@ def topological_sort(vertices)
         vert_queue.unshift(edge.to_vertex)
       end
     end
+
     curr_vert.out_edges.each do |edge|
       edge.destroy!
     end
@@ -29,6 +30,6 @@ def topological_sort(vertices)
   vertices.empty? ? vert_sorted : []
 end
 
-def tarians_sort
+def tarians_sort(verticies)
   
 end
